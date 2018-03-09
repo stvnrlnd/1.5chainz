@@ -16,10 +16,25 @@ class Block {
         this.timestamp = timestamp;
         this.data = data;
         this.hash = this.calculateHash();
+        this.nonce = 0; // Will be incremented when good hash is found
     }
 
     calculateHash() {
-        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+        return SHA256(
+            this.index 
+            + this.previousHash 
+            + this.timestamp 
+            + JSON.stringify(this.data)
+            + this.nonce
+        ).toString();
+    }
+
+    mineBlock(difficulty) { // Decrease spam blocks being created by adding difficulty which should increase time spent to create new block
+        while(this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+            this.nonce++;
+            this.hash = this.calculateHash();
+        }
+        console.log("Block Mined: " + this.hash);
     }
 }
 
