@@ -72,3 +72,10 @@ fittyCoin.addBlock(new Block(2, "09/03/2018", {total: 8}));
 
 // Test if chain is valid
 console.log("Valid chain? " + fittyCoin.isChainValid());
+
+// Trying to change a block after mined
+console.log("Modify a block...");
+fittyCoin.chain[1].data = {total: 20};
+
+// Test if chain is valid after block change -- should return false
+console.log("Valid chain? " + fittyCoin.isChainValid());
