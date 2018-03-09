@@ -1,5 +1,27 @@
-// Require Block class
-const Block = require('./block');
+const SHA256 = require('sha256');
+
+class Block {
+    /*
+     * Initialize the properties of the block. 
+     *
+     *   Each block is given an index that tells 
+     *   us at what position the block sits on the chain. 
+     *   We also include a timestamp, some data 
+     *   to store in our block, and finally the 
+     *   hash of the previous block.
+     */
+    constructor(index, timestamp, data, previousHash = '') {
+        this.index = index;
+        this.previousHash = previousHash;
+        this.timestamp = timestamp;
+        this.data = data;
+        this.hash = this.calculateHash();
+    }
+
+    calculateHash() {
+        return SHA256(this.index + this.previousHash + this.timestamp + JSON.stringify(this.data)).toString();
+    }
+}
 
 class Blockchain {
     constructor() {
@@ -7,7 +29,7 @@ class Blockchain {
     }
 
     createGenesisBlock() { // Create first block with Block class
-        return new Block(0, "03/09/2018", "Genesis Block", "0");
+        return new Block(0, "09/03/2018", "Genesis Block", "0");
     }
 
     getLatestBlock() { // Find out what the last block was to make hash for next block
@@ -38,3 +60,11 @@ class Blockchain {
         return true;
     }
 }
+
+let fittyCoin = new Blockchain;
+
+console.log("Mining Block 1 ... \n");
+fittyCoin.addBlock(new Block(1, "09/03/2018", {total: 3}));
+
+console.log("Mining Block 2 ... \n");
+fittyCoin.addBlock(new Block(2, "09/03/2018", {total: 8}));
