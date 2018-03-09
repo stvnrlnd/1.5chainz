@@ -61,6 +61,7 @@ class Blockchain {
     }
 }
 
+// Create test chain
 let fittyCoin = new Blockchain;
 
 console.log("Mining Block 1 ... \n");
@@ -68,3 +69,6 @@ fittyCoin.addBlock(new Block(1, "09/03/2018", {total: 3}));
 
 console.log("Mining Block 2 ... \n");
 fittyCoin.addBlock(new Block(2, "09/03/2018", {total: 8}));
+
+// Test if chain is valid
+console.log("Valid chain? " + fittyCoin.isChainValid());
