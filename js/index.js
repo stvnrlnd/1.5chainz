@@ -41,6 +41,7 @@ class Block {
 class Blockchain {
     constructor() {
         this.chain = [this.createGenesisBlock()]; // Make sure to create first block on start
+        this.difficulty = 5; // Will be used to add 5 zeros to beginning of new block hash
     }
 
     createGenesisBlock() { // Create first block with Block class
@@ -53,7 +54,7 @@ class Blockchain {
 
     addBlock(newBlock) { // Create new block with hash from previous block, create hash for new block, and push onto chain
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
