@@ -56,7 +56,7 @@ class Blockchain {
     }
 
     createGenesisBlock() { // Create first block with Block class
-        return new Block(0, "09/03/2018", "Genesis Block", "0");
+        return new Block(Date.now(), [], "0");
     }
 
     getLatestBlock() { // Find out what the last block was to make hash for next block
