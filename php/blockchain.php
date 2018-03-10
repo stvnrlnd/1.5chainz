@@ -18,5 +18,8 @@ class Blockchain {
         return $this->chain[count($this->chain) - 1];
     }
 
+    public function createTransaction($transaction) {
+        array_push($this->pendingTransactions, $transaction);
+    }
 
 }
