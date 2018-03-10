@@ -1,28 +1,31 @@
 const SHA256 = require('sha256');
 
+class Transaction {
+
+}
+
 class Block {
-    /*
-     * Initialize the properties of the block. 
+    /* Initialize the properties of the block. 
      *
-     *   Each block includes a timestamp, some data 
+     *   Each block includes a timestamp, some transaction data 
      *   to store in our block, and the 
      *   hash of the previous block. We also add a 
      *   nonce value that will be incremented when 
      *   a good hash is found.
      */
-    constructor(timestamp, data, previousHash = '') {
+    constructor(timestamp, transactions, previousHash = '') {
         this.previousHash = previousHash;
         this.timestamp = timestamp;
-        this.data = data;
+        this.transactions = transactions;
         this.hash = this.calculateHash();
-        this.nonce = 0; // Will be incremented when good hash is found
+        this.nonce = 0;
     }
 
     calculateHash() {
         return SHA256(
             this.previousHash 
             + this.timestamp 
-            + JSON.stringify(this.data)
+            + JSON.stringify(this.transactions)
             + this.nonce
         ).toString();
     }
@@ -89,7 +92,7 @@ console.log("Valid chain? " + fittyCoin.isChainValid());
 
 // Trying to change a block after mined
 console.log("Modify a block...");
-fittyCoin.chain[1].data = {total: 20};
+fittyCoin.chain[1].transactions = {total: 20};
 
 // Test if chain is valid after block change -- should return false
 console.log("Valid chain? " + fittyCoin.isChainValid());
