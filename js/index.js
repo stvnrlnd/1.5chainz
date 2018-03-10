@@ -4,14 +4,13 @@ class Block {
     /*
      * Initialize the properties of the block. 
      *
-     *   Each block is given an index that tells 
-     *   us at what position the block sits on the chain. 
-     *   We also include a timestamp, some data 
-     *   to store in our block, and finally the 
-     *   hash of the previous block.
+     *   Each block includes a timestamp, some data 
+     *   to store in our block, and the 
+     *   hash of the previous block. We also add a 
+     *   nonce value that will be incremented when 
+     *   a good hash is found.
      */
-    constructor(index, timestamp, data, previousHash = '') {
-        this.index = index;
+    constructor(timestamp, data, previousHash = '') {
         this.previousHash = previousHash;
         this.timestamp = timestamp;
         this.data = data;
@@ -21,8 +20,7 @@ class Block {
 
     calculateHash() {
         return SHA256(
-            this.index 
-            + this.previousHash 
+            this.previousHash 
             + this.timestamp 
             + JSON.stringify(this.data)
             + this.nonce
