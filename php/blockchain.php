@@ -12,4 +12,8 @@ class Blockchain {
     private function createGenesisBlock() {
         return new Block(date('Y-m-d H:i:s'), [], "0");
     }
+
+    public function getLastBlock() {
+        return $this->chain[count($this->chain) - 1];
+    }
 }
