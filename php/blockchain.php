@@ -1,4 +1,5 @@
 <?php
+require_once('./transaction.php');
 require_once('./block.php');
 
 class Blockchain {
@@ -16,4 +17,6 @@ class Blockchain {
     public function getLastBlock() {
         return $this->chain[count($this->chain) - 1];
     }
+
+
 }
