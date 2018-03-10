@@ -47,6 +47,12 @@ class Blockchain {
     constructor() {
         this.chain = [this.createGenesisBlock()]; // Make sure to create first block on start
         this.difficulty = 5; // Will be used to add 5 zeros to beginning of new block hash
+
+        // Array to store pending transactions that were added between block creation
+        this.pendingTransactions = [];
+
+        // Amount of coins to give someone when new block is mined
+        this.miningReward = 10;
     }
 
     createGenesisBlock() { // Create first block with Block class
