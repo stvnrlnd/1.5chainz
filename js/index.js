@@ -1,7 +1,11 @@
 const SHA256 = require('sha256');
 
 class Transaction {
-
+    constructor(fromAddress, toAddress, amount) {
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
+        this.amount = amount;
+    }
 }
 
 class Block {
