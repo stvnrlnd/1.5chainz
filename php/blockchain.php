@@ -22,4 +22,12 @@ class Blockchain {
         array_push($this->pendingTransactions, $transaction);
     }
 
+    public function minePendingTransactions($walletAddress) {
+        $block = new Block(date('Y-m-d H:i:s'),$this->pendingTransactions);
+        $block.mineBlock($this->difficutly);
+        array_push($this->chain, $block);
+        $this->pendingTransactions = [
+            new Transaction(null, $walletAddress, $this->miningReward)
+        ];
+    }
 }
