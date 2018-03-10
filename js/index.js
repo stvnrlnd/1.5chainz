@@ -76,7 +76,7 @@ class Blockchain {
         this.pendingTransactions.push(transaction);
     }
 
-    minePendingTransactions() {
+    minePendingTransactions(walletAddress) {
         // Create new block with pending transactions
         let block = new Block(Date.now(), this.pendingTransactions);
         // Mine that bad boy
@@ -89,6 +89,24 @@ class Blockchain {
         this.pendingTransactions = [
             new Transaction(null, walletAddress, this.miningReward)
         ]
+    }
+
+    getWalletBalance(address) {
+        let balance = 0; // Yikes, no coins in the my wallet
+
+        for (const block of this.chain) { // Loop over each block in chain
+            for (const trans of block.transactions) { // Loop over each transaction in block
+                if (trans.fromAddress === address) {
+                    // Moving coins out of wallet
+                    balance -= trans.amount;
+                }
+                if (trans.toAddress === address) {
+                    // Moving coins into wallet
+                    balance += trans.amount;
+                }
+            }
+        }
+        return balance;
     }
 
     isChainValid() {
@@ -111,13 +129,28 @@ class Blockchain {
 }
 
 // Create test chain
-let fittyCoin = new Blockchain;
+let fittyCoin = new Blockchain();
 
-console.log("Mining Block 1 ... \n");
-fittyCoin.addBlock(new Block(1, "09/03/2018", {total: 3}));
+console.log("Dogfooding transactions ... \n");
+fittyCoin.createTransaction(new Transaction("Wallet 1", "Wallet 2", 10));
+fittyCoin.createTransaction(new Transaction("Wallet 2", "Wallet 1", 20));
 
-console.log("Mining Block 2 ... \n");
-fittyCoin.addBlock(new Block(2, "09/03/2018", {total: 8}));
+// Start miner
+console.log("Mining the pending transactions... \n");
+fittyCoin.minePendingTransactions("My Wallet");
+
+console.log("I have " + fittyCoin.getWalletBalance("My Wallet") + " in my wallet.\n");
+
+// Start miner again
+console.log("Mining the pending transactions... \n");
+fittyCoin.minePendingTransactions("My Wallet");
+
+console.log("Now I have " + fittyCoin.getWalletBalance("My Wallet") + " in my wallet.\n");
+
+
+
+
+
 
 // Test if chain is valid
 console.log("Valid chain? " + fittyCoin.isChainValid());
