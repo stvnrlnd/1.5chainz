@@ -30,4 +30,20 @@ class Blockchain {
             new Transaction(null, $walletAddress, $this->miningReward)
         ];
     }
+
+    public function isValid() {
+        for ($i = 1; i < count($this->chain); i++) {
+            $currentBlock = $this->chain[$i];
+            $previousBlock = $this->chain[$i - 1];
+
+            if ($currentBlock->hash !== $currentBlock->calculateHash()) {
+                return false;
+            }
+
+            if ($currentBlock->previousHash !== $previousBlock->hash) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
