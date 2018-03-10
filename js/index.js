@@ -63,10 +63,17 @@ class Blockchain {
         return this.chain = [this.chain.length - 1];
     }
 
-    addBlock(newBlock) { // Create new block with hash from previous block, create hash for new block, and push onto chain
-        newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.mineBlock(this.difficulty);
-        this.chain.push(newBlock);
+    // addBlock(newBlock) { // Create new block with hash from previous block, create hash for new block, and push onto chain
+    //     newBlock.previousHash = this.getLatestBlock().hash;
+    //     newBlock.mineBlock(this.difficulty);
+    //     this.chain.push(newBlock);
+    // }
+
+    createTransaction(transaction) {
+        // Add validation
+
+        // Push new transaction onto the pending transactions array
+        this.pendingTransactions.push(transaction);
     }
 
     isChainValid() {
