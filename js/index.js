@@ -76,6 +76,21 @@ class Blockchain {
         this.pendingTransactions.push(transaction);
     }
 
+    minePendingTransactions() {
+        // Create new block with pending transactions
+        let block = new Block(Date.now(), this.pendingTransactions);
+        // Mine that bad boy
+        block.mineBlock(this.difficulty);
+
+        // Add the newly mined block to the chain
+        this.chain.push(block);
+
+        // Reset the pending transaction list and send treats
+        this.pendingTransactions = [
+            new Transaction(null, walletAddress, this.miningReward)
+        ]
+    }
+
     isChainValid() {
         for (let i = 1; i < this.chain.length; i++) {
             const currentBlock = this.chain[i];
