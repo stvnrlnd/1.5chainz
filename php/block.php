@@ -10,7 +10,7 @@ class Block {
     }
 
     public function calculateHash() {
-        return hash("sha256", $this->previousHash.$this->timestamp.((string)$this->transactions).$this->nonce);
+        return hash("sha256", $this->previousHash.$this->timestamp.json_encode($this->transactions).$this->nonce);
     }
 
     public function mineBlock($difficulty) {
