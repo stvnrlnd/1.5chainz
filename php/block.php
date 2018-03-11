@@ -10,9 +10,9 @@ class Block {
     }
 
     public function calculateHash() {
-        return hash("sha256", $this->previousHash.$this->timestamp.((string)$this->transactions).$this->nonce;
+        return hash("sha256", $this->previousHash.$this->timestamp.((string)$this->transactions).$this->nonce);
     }
-    
+
     public function mineBlock($difficulty) {
         while(substr($this->hash, 0, $difficulty) !== str_repeat("0", $difficulty)) {
             $this->nonce++;

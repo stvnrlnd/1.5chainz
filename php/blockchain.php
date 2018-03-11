@@ -32,7 +32,7 @@ class Blockchain {
     }
 
     public function isValid() {
-        for ($i = 1; i < count($this->chain); i++) {
+        for ($i = 1; $i < count($this->chain); $i++) {
             $currentBlock = $this->chain[$i];
             $previousBlock = $this->chain[$i - 1];
 
