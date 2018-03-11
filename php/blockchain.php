@@ -31,6 +31,21 @@ class Blockchain {
         ];
     }
 
+    public function getWalletBalance($address) {
+        $balance = 0;
+        foreach ($this->chain as $block) {
+            foreach ($block->transactions as $trans) {
+                if ($trans->fromAddress === $address) {
+                    $balance -= $trans->amount;
+                }
+                if ($trans->toAddress === $address) {
+                    $balance += $trans->amount;
+                }
+            }
+        }
+        return $balance;
+    }
+
     public function isValid() {
         for ($i = 1; $i < count($this->chain); $i++) {
             $currentBlock = $this->chain[$i];
