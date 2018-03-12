@@ -6,8 +6,16 @@ class Blockchain(object):
     def new_block(self):
         pass
     
-    def new_transactions(self):
-        pass
+    def new_transactions(self, sender, recipient, amount):
+        """
+            Creates a new transaction to go inside the next mined block
+        """
+        self.current_transactions.append({
+            'sender': sender,
+            'recipient': recipient,
+            'amount': amount
+        })
+        return self.last_block['index'] + 1
 
     @staticmethod
     def hash(block):
