@@ -72,5 +72,18 @@ class Blockchain(object):
         proof = 0
         while self.valid_proof(last_proof, proof) is False:
             proof += 1
-            
+
         return proof
+    
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        """
+            Validates proof
+
+            :param last_proof: <int>
+            :param proof: <int>
+            :return: <bool>
+        """
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
