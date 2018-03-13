@@ -27,7 +27,7 @@ class Blockchain(object):
 
         self.current_transactions = []
 
-        self.chain.append(block);
+        self.chain.append(block)
         return block
     
     def new_transactions(self, sender, recipient, amount):
