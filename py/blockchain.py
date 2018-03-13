@@ -1,6 +1,7 @@
 import hashlib
 import json
 from time import time
+from uuid import uuid4
 
 class Blockchain(object):
     def __init__(self):
@@ -60,3 +61,16 @@ class Blockchain(object):
     @property
     def last_block(self):
         return self.chain[-1]
+
+    def proof_of_work(self, last_proof):
+        """
+            A simple Proof of Work algorithm
+
+            :param last_proof: <int>
+            :return: <int>
+        """
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+            
+        return proof
